@@ -20,3 +20,7 @@
 >> 绝对路径：从src/..开始。
 
 >> 相对路径：../../开始。（如果需要引入的文件在当前文件的父级文件夹同级或者再往上，则需多加../，具体加多少加到他不报错为止）
+
+### 5、ORACLE的Copy命令和create table,insert into的比较
+>> 讲解了copy from命令的使用说明，以及与create table和insert into进行效率的对比。
+>> [原文](https://blog.csdn.net/cscscscsc/article/details/55260065)
