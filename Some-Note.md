@@ -24,3 +24,7 @@
 ### 5、ORACLE的Copy命令和create table,insert into的比较
 >> 讲解了copy from命令的使用说明，以及与create table和insert into进行效率的对比。
 >> [原文](https://blog.csdn.net/cscscscsc/article/details/55260065)
+
+### 6、限制同一IP一段时间内多次请求服务器
+>> 获取IP，并将该ip下请求的次数记录在session中。但如果请求端清除过cookies，则此方法将无效。
+>> [代码参考](https://github.com/lorelei47/Some-Note/blob/master/LimitIpRequest)
