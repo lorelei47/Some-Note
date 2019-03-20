@@ -1,0 +1,52 @@
+/*
+ *此方法是的前提是在cookies存在的情况下适用
+ */
+ 
+--限制同一IP一段时间内多次请求服务器
+public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String ip=request.getRemoteAddr();
+		ReminderIpUtils reminderIpUtils=new ReminderIpUtils(request.getSession(),ip);
+		boolean flag = reminderIpUtils.removeSession(60);
+
+		String json = "";
+		if(!flag){
+			json="{\"code\":\"500\",\"message\":\"请求频繁\"}";
+			out.print(json);
+			return;
+		}
+
+	}
+public class ReminderIpUtils {
+		private HttpSession session;
+		private String ip;
+		public ReminderIpUtils(){}
+		public ReminderIpUtils(HttpSession session, String ip) {
+		super();
+		this.session = session;
+		this.ip = ip;
+	}
+	//seconds多少时间内
+	public boolean removeSession(int seconds){
+		Integer index0=(Integer)session.getAttribute(ip);//获得当前请求ip对应的访问次数
+		int count=0;
+		if(index0==null){
+			Runnable runnable=new Runnable() {
+				public void run() {
+					session.removeAttribute(ip);
+					}
+				};
+				ScheduledExecutorService scheduledExecutorService= Executors.newSingleThreadScheduledExecutor();
+				scheduledExecutorService.schedule(runnable,seconds,TimeUnit.SECONDS);
+				count=0;
+				}else{
+					count=index0;
+					}
+		session.setAttribute(ip,count+1);//记录相同ip访问次数
+		if(count>1){//每分钟5次{
+			return false;
+		}else{
+			return true;			
+		}
+	}
+}
